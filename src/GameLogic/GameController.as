@@ -1,7 +1,5 @@
 package GameLogic
-{
-	import flash.display.ColorCorrection;
-	
+{	
 	import Screen.DisplayAverageColor;
 	import Screen.DisplayPalette;
 	import Screen.DisplayPaletteItem;
