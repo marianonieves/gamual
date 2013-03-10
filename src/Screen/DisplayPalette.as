@@ -24,14 +24,14 @@ package Screen
 		{
 			addChild ( FormsUtils.drawRectangle( size.width, size.height, 0xffffff, 0x000000 ) );
 						
-			var itemSize:Object = { width:(size.width/Config.colorCodes.length) , height:size.height };
+			var itemSize:Object = { width:(size.width/Config.codeColor.length) , height:size.height };
 			
 			var currentItem:DisplayPaletteItem;
 			
-			for( var i:int=0; i<Config.colorCodes.length; i++)
+			for( var i:int=0; i<Config.codeColor.length; i++)
 			{
 				currentItem = new DisplayPaletteItem();
-				currentItem.referenceColor = Config.colorCodes[i];
+				currentItem.referenceColor = DataColor(Config.codeColor[i]).value;
 				currentItem.updateSize( itemSize.width, itemSize.height );
 				currentItem.x = i * itemSize.width;
 				currentItem.initialize();
@@ -39,9 +39,12 @@ package Screen
 				colorsToFind[ currentItem.referenceColor ] = currentItem;
 				addChild( currentItem );
 				
-			}
-			
-			
+			}			
+		}
+		
+		public function similarTo(i):void
+		{
+			DisplayPaletteItem( colorsToFind[ Config.codeColor[i].value ] ).hide();
 		}
 		
 	}

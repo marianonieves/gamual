@@ -8,15 +8,16 @@ package CameraLogic
 	import flash.geom.Matrix;
 	import flash.utils.Timer;
 	
-	import Screen.DisplayAverageColor;
+	import GameLogic.GameController;
 	
 	import Utils.ColourUtils;
+	import Utils.MatrixUtil;
 	
 	public class SnapshotController
 	{
 		public var sourceCanvas:Sprite;
 		public var targetCanvas:Sprite;
-		public var averageColorCanvas:DisplayAverageColor;
+		public var gameController:GameController;
 		
 		public var scale:Number=1;
 		public var showSnapshotCanvas:Boolean=Config.showSnapshotCanvas;
@@ -42,7 +43,7 @@ package CameraLogic
 
 			scaleMatrix = new Matrix();
 			scaleMatrix.scale(scale, scale)
-			
+
 			timerObject = new Timer( Config.snapshotRefreshTime );
 			timerObject.addEventListener( TimerEvent.TIMER, snapshot );
 			timerObject.start();			
@@ -51,9 +52,15 @@ package CameraLogic
 		public function snapshot(eventObject:TimerEvent):void 
 		{ 
 			image = new Bitmap( imageData , PixelSnapping.ALWAYS, true );
+			image.filters = [
+				MatrixUtil.setBrightness(0),
+				MatrixUtil.setContrast(100),
+				MatrixUtil.setSaturation(100)];
+			
 			imageData.draw(sourceCanvas,scaleMatrix) ;
-			averageColorCanvas.updateColor( ColourUtils.averageColour(imageData) );
+			gameController.updateAverageColor( ColourUtils.averageColour(imageData) );
 		}
 		
+
 	}
 }
