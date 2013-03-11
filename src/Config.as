@@ -5,7 +5,7 @@ package
 		public static var snapshotRefreshTime:Number=500;
 		public static var snapshotScale:Number = .1;
 		public static var delayedCallTime:Number=1000;
-		public static var showSnapshotCanvas:Boolean=false;
+		public static var showDebugTools:Boolean=false;
 		
 		public static var similarityTolerance:Number=0.05;
 		

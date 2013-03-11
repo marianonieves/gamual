@@ -12,6 +12,7 @@ package Screen
 		public var displayAverageColor:DisplayAverageColor;
 		public var displayHeader:DisplayHeader;
 		public var displayPalette:DisplayPalette;
+		public var debugDisplayPalette:DisplayPalette;
 		
 		public function ScreenController()
 		{
@@ -32,12 +33,12 @@ package Screen
 			displayPalette = new DisplayPalette();
 			mainStage.addChild(displayPalette);
 			
-			if( Config.showSnapshotCanvas )
+			if( Config.showDebugTools )
 			{
 				displaySnapshot = new DisplaySnapshot();
 				displaySnapshot.x = mainStage.stageHeight/8 * 7;
 				displaySnapshot.y = 0;
-				mainStage.addChild(displaySnapshot);
+				mainStage.addChild(displaySnapshot);				
 			}
 			
 			TimeUtils.delayedCall(setLayout);
@@ -60,13 +61,21 @@ package Screen
 			displayPalette.x = 0;
 			displayPalette.y = displayCamera.y + displayCamera.size.height;
 			displayPalette.updateSize( mainStage.stageWidth, mainStage.stageHeight/10 );
-			displayPalette.initialize();
+			displayPalette.initialize(Config.codeColor);
+
 			
-			if( Config.showSnapshotCanvas )
+			if( Config.showDebugTools )
 			{
 				displaySnapshot.x = mainStage.stageHeight/8 * 7;
 				displaySnapshot.y = 0;
+				
+				debugDisplayPalette = new DisplayPalette();
+				debugDisplayPalette.y = 0;
+				debugDisplayPalette.updateSize( mainStage.stageWidth, mainStage.stageHeight/10 );
+//				debugDisplayPalette.initialize(Config.codeColor);
+				mainStage.addChild(debugDisplayPalette);
 			}
+			
 		}
 		
 	}

@@ -48,6 +48,7 @@ package
 			gameController = new GameController();
 			gameController.averageColorCanvas = screenController.displayAverageColor;
 			gameController.paletteCanvas = screenController.displayPalette;
+			gameController.paletteDebugCanvas = screenController.debugDisplayPalette;
 			gameController.initialize();
 			
 			
@@ -60,6 +61,7 @@ package
 			snapshotController = new SnapshotController();
 			snapshotController.sourceCanvas = screenController.displayCamera;
 			snapshotController.targetCanvas = screenController.displaySnapshot;
+			snapshotController.debugCanvas = screenController.debugDisplayPalette;
 			snapshotController.gameController = gameController;
 			snapshotController.initialize();
 		}
