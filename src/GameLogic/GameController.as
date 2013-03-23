@@ -8,8 +8,8 @@ package GameLogic
 
 	public class GameController
 	{
-		public var averageColor:uint;
-		public var averageColorCanvas:DisplayAverageColor;
+		public var referenceColor:uint;
+		public var referenceColorCanvas:DisplayAverageColor;
 		public var paletteCanvas:DisplayPalette;
 		public var paletteDebugCanvas:DisplayPalette;
 		public var colorCodes:Array = new Array();
@@ -27,21 +27,23 @@ package GameLogic
 		public function updateReferenceColor( newColor:uint ):void
 		{
 			trace("GameController.referenceColor:" + newColor);
-			averageColor = newColor;
-			averageColorCanvas.updateColor( averageColor );
+			referenceColor = newColor;
+			referenceColorCanvas.updateColor( referenceColor );
 			
 			var displayPaletteItem:DisplayPaletteItem = new DisplayPaletteItem()
-			for( var i:int in paletteCanvas.colorsToFind )
+			var index:int=0;
+			for( index in paletteCanvas.colorsToFind )
 			{
-				displayPaletteItem = paletteCanvas.colorsToFind[i];
-				if( displayPaletteItem.visible && ColourUtils.similar( displayPaletteItem.referenceColor, averageColor, Config.similarityTolerance ) )
+				displayPaletteItem = paletteCanvas.colorsToFind[index];
+				if( displayPaletteItem.visible && ColourUtils.similar( displayPaletteItem.referenceColor, referenceColor, Config.similarityTolerance ) )
 				{
 					displayPaletteItem.hide();
 					break;
-				}				
+				}
 			}
-
+			
 		}
+		
 			
 	}
 }

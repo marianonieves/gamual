@@ -46,7 +46,7 @@ package
 			
 			// Game
 			gameController = new GameController();
-			gameController.averageColorCanvas = screenController.displayAverageColor;
+			gameController.referenceColorCanvas = screenController.displayAverageColor;
 			gameController.paletteCanvas = screenController.displayPalette;
 			gameController.paletteDebugCanvas = screenController.debugDisplayPalette;
 			gameController.initialize();
