@@ -1,6 +1,7 @@
 package Screen
 {
 	import Utils.FormsUtils;
+	import UI.UIElement;
 
 	public class DisplayPaletteItem extends UIElement
 	{		

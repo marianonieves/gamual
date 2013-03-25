@@ -1,18 +1,25 @@
 package Screen
 {
-	import Utils.FormsUtils;
+	import flash.display.Sprite;
+	
 	import UI.UIElement;
+	
+	import Utils.FormsUtils;
 
-	public class DisplayAverageColor extends UIElement
+	public class DisplayCard extends UIElement
 	{
+		public var card:Sprite;
 		
-		public function DisplayAverageColor()
+		public function DisplayCard()
 		{
 			super();
+			card = new Sprite();
 		}
 		
 		public override function updateSize(width:Number, height:Number ):void
 		{
+			card.width = width;
+			card.height = height;
 			size.width = width;
 			size.height = height;
 		}

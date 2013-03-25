@@ -2,6 +2,7 @@ package Screen
 {
 	import flash.text.TextField;
 	import flash.text.TextFormat;
+	import UI.UIElement;
 
 	public class DisplayHeader extends UIElement
 	{

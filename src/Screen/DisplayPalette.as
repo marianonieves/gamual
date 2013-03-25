@@ -3,6 +3,7 @@ package Screen
 	import flash.utils.Dictionary;
 	
 	import Utils.FormsUtils;
+	import UI.UIElement;
 
 	public class DisplayPalette extends UIElement
 	{		

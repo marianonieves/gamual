@@ -3,22 +3,18 @@ package
 	import flash.display.Sprite;
 	import flash.display.StageAlign;
 	import flash.display.StageScaleMode;
+	import flash.events.Event;
 	
-	import CameraLogic.CameraController;
-	import CameraLogic.SnapshotController;
+	import Configuration.Configuration;
 	
-	import GameLogic.GameController;
-	
-	import Screen.ScreenController;
+	import Navigation.NavigationManager;
 	
 	import Utils.TimeUtils;
 	
 	public class Main extends Sprite
 	{
-		private var cameraController:CameraController;
-		private var screenController:ScreenController;
-		private var snapshotController:SnapshotController;
-		private var gameController:GameController;
+		private var navigationManager:NavigationManager;
+		private var configuration:Configuration;
 		
 		public function Main()
 		{
@@ -28,42 +24,32 @@ package
 			stage.align = StageAlign.TOP_LEFT;
 			stage.scaleMode = StageScaleMode.NO_SCALE;
 			
-			Utils.TimeUtils.delayedCall(initialize);
+			Utils.TimeUtils.delayedCall(configurationFileLoad);
 		}
 		
-		public function initialize():void
+		public function configurationFileLoad():void
 		{
-			// Canvas, create Layout
-			screenController = new ScreenController();
-			screenController.mainStage = stage;
-			screenController.initialize();
-			
-			// Camera
-			cameraController = new CameraController();
-			cameraController.canvas = screenController.displayCamera.videoCanvas;
-			cameraController.stage = stage;
-			cameraController.initialize();
-			
-			// Game
-			gameController = new GameController();
-			gameController.referenceColorCanvas = screenController.displayAverageColor;
-			gameController.paletteCanvas = screenController.displayPalette;
-			gameController.paletteDebugCanvas = screenController.debugDisplayPalette;
-			gameController.initialize();
-			
-			
-			Utils.TimeUtils.delayedCall(startSnapshotController);
+			// The Set of data could change by Game Mode
+			configuration = new Configuration();
+			configuration.addEventListener(Event.COMPLETE,configurationFile_onLoaded);
+			configuration.load(Config.pathConfigurationFile);			
 		}
 		
-		public function startSnapshotController():void
+		public function configurationFile_onLoaded(e:Event):void
 		{
-			// SnapshotController
-			snapshotController = new SnapshotController();
-			snapshotController.sourceCanvas = screenController.displayCamera;
-			snapshotController.targetCanvas = screenController.displaySnapshot;
-			snapshotController.debugCanvas = screenController.debugDisplayPalette;
-			snapshotController.gameController = gameController;
-			snapshotController.initialize();
+			// Screen Manager is in charge of initialize Screen and Logic
+			navigationManager = new NavigationManager();
+			navigationManager.mainStage = stage;
+			navigationManager.initialize(NavigationManager.NODE_GAME);
+			
+			initializeApp();
+		}
+		
+		public function initializeApp():void
+		{
+			Config.stageHeight = stage.stageHeight;
+			Config.stageWidth = stage.stageWidth;
+			Config.navigationManager = navigationManager;
 		}
 		
 	}

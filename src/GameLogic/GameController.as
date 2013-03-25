@@ -26,7 +26,7 @@ package GameLogic
 		
 		public function updateReferenceColor( newColor:uint ):void
 		{
-			trace("GameController.referenceColor:" + newColor);
+			Config.logger.log("GameController.referenceColor:" + newColor);
 			referenceColor = newColor;
 			referenceColorCanvas.updateColor( referenceColor );
 			

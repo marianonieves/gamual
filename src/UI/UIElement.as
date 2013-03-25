@@ -1,8 +1,8 @@
-package Screen
+package UI
 {
 	import flash.display.Sprite;
 	
-	import Screen.IUIElement;
+	import UI.IUIElement;
 
 	public class UIElement extends Sprite implements IUIElement
 	{

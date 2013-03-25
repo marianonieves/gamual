@@ -1,0 +1,11 @@
+ <config id="Application">
+ 
+	<!-- Group of Application Settings -->
+	<config id="InitialParams">
+		<!-- Additional Info -->
+		<item key="CREDITS" value="aaa,bbb,ccc" />
+		<!-- game version as 11 character string formatted as YYYYMMDD.build -->
+		<item key="VERSION" value="2013.03.23" />
+	</config>
+
+</config>
