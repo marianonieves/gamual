@@ -3,12 +3,15 @@ package
 	import Logger.Logger;
 	
 	import Navigation.NavigationManager;
+	
+	import br.com.stimuli.loading.BulkLoader;
 
 	public class Config
 	{
 		public static var logger:Logger = new Logger();
 		public static var pathConfigurationFile:String="Assets/configuration/configuration.xml";
 		public static var navigationManager:NavigationManager;
+		public static var loader:BulkLoader = new BulkLoader("gamual");
 		
 		public static var stageHeight:Number = 100;
 		public static var stageWidth:Number = 100;

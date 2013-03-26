@@ -11,6 +11,8 @@ package
 	
 	import Utils.TimeUtils;
 	
+	import br.com.stimuli.loading.BulkLoader;
+	
 	public class Main extends Sprite
 	{
 		private var navigationManager:NavigationManager;
@@ -37,11 +39,20 @@ package
 		
 		public function configurationFile_onLoaded(e:Event):void
 		{
-			// Screen Manager is in charge of initialize Screen and Logic
-			navigationManager = new NavigationManager();
-			navigationManager.mainStage = stage;
-			navigationManager.initialize(NavigationManager.NODE_GAME);
-			
+			loadCards();
+		}
+		
+		public function loadCards():void
+		{
+			Config.loader.logLevel = BulkLoader.LOG_INFO;
+
+			Config.loader.add("/Assets/cards/card2.png", {id:"card2"});
+			Config.loader.addEventListener(BulkLoader.COMPLETE, loadCards_onComplete);
+			Config.loader.start();
+		}
+		
+		public function loadCards_onComplete(e:Event):void
+		{
 			initializeApp();
 		}
 		
@@ -50,7 +61,13 @@ package
 			Config.stageHeight = stage.stageHeight;
 			Config.stageWidth = stage.stageWidth;
 			Config.navigationManager = navigationManager;
+			
+			// Screen Manager is in charge of initialize Screen and Logic
+			navigationManager = new NavigationManager();
+			navigationManager.mainStage = stage;
+			navigationManager.initialize(NavigationManager.NODE_GAME);
 		}
+		
 		
 	}
 }

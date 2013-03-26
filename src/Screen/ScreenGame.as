@@ -34,16 +34,15 @@ package Screen
 			mainStage.addChild(displayHeader);
 			
 			displayCamera = new DisplayCamera();
-			mainStage.addChild(displayCamera);
-			
-			displayCard = new DisplayCard();
-		aca
-			displayCard.card = new EmbededResources.card1;
-			mainStage.addChild(displayCard);
+			mainStage.addChild(displayCamera);			
 			
 			displayAverageColor = new DisplayAverageColor();
-			displayAverageColor.visible = false;
+			displayAverageColor.visible = true;
 			mainStage.addChild(displayAverageColor);			
+			
+			displayCard = new DisplayCard();
+			displayCard.card = Config.loader.getBitmap("card2");
+			mainStage.addChild(displayCard.card);
 			
 			displayPalette = new DisplayPalette();
 			mainStage.addChild(displayPalette);
