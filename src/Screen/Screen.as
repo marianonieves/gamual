@@ -1,15 +1,16 @@
 package Screen
 {
 	import flash.display.Sprite;
-	import flash.display.Stage;
 
-	public class Screen extends Sprite
+	public class Screen extends Sprite implements IScreen
 	{
-		public var mainStage:Stage;
 		
 		public function Screen()
 		{
 		}
+		
+		public function initialize():void{}
+		public function finalize():void{}
 		
 	}
 }

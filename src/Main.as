@@ -60,12 +60,14 @@ package
 		{
 			Config.stageHeight = stage.stageHeight;
 			Config.stageWidth = stage.stageWidth;
-			Config.navigationManager = navigationManager;
 			
 			// Screen Manager is in charge of initialize Screen and Logic
 			navigationManager = new NavigationManager();
 			navigationManager.mainStage = stage;
-			navigationManager.initialize(NavigationManager.NODE_GAME);
+			Config.navigationManager = navigationManager;
+			
+			Config.navigationManager.initialize(NavigationManager.NODE_PRESENTATION);
+			
 		}
 		
 		

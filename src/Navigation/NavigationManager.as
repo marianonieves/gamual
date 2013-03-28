@@ -10,13 +10,10 @@ package Navigation
 		public var mainStage:Stage;
 		
 		private var currentNodeName:String="";
-		private var currentNode:NavigationNode;
-		
-		private var screenGame:ScreenGame;
-		private var screenPresentation:ScreenPresentation;
+		private var currentNode:NavigationNode;		
 		private var nodeReferences:Object;
 		
-		public static const NODE_PRESENTATION:String = "NODE_START";
+		public static const NODE_PRESENTATION:String = "NODE_PRESENTATION";
 		public static const NODE_GAME:String = "NODE_GAME";
 		
 		public function NavigationManager()
@@ -26,10 +23,9 @@ package Navigation
 		
 		public function initialize(initialNode:String=NavigationManager.NODE_PRESENTATION):void
 		{
-			
 			nodeReferences = new Object();
-			nodeReferences[NavigationManager.NODE_PRESENTATION] = new NavigationNode( NavigationManager.NODE_PRESENTATION, presentationInitialize, presentationFinalize );
-			nodeReferences[NavigationManager.NODE_GAME] = new NavigationNode( NavigationManager.NODE_PRESENTATION, gameInitialize, gameFinalize );
+			nodeReferences[NavigationManager.NODE_PRESENTATION] = new NavigationNode( NavigationManager.NODE_PRESENTATION, ScreenPresentation );
+			nodeReferences[NavigationManager.NODE_GAME] = new NavigationNode( NavigationManager.NODE_PRESENTATION, ScreenGame );
 			
 			navigateTo(initialNode);
 		}
@@ -38,43 +34,15 @@ package Navigation
 		{
 			if( currentNode != null)
 			{
-				currentNode = nodeReferences[currentNode];
-				currentNode.finalize();
 				mainStage.removeChild( currentNode.screen );
+				currentNode.finalize();
 			}
+			
+			Config.logger.log("currentNode:"+currentNode);
 
 			currentNode = nodeReferences[node];
 			currentNode.initialize();
 			mainStage.addChild(currentNode.screen);
-		}
-		
-		public function presentationInitialize():void
-		{
-			// Create the Presentation Screen
-			screenPresentation = new ScreenPresentation();
-			screenPresentation.mainStage = mainStage;
-			currentNode.screen = screenPresentation;
-		}
-		
-		public function presentationFinalize():void
-		{
-			
-		}
-		
-		public function gameInitialize():void
-		{
-			// Canvas, create Layout
-			screenGame = new ScreenGame();
-			screenGame.mainStage = mainStage;
-			screenGame.initialize();
-			
-			currentNode.screen = screenGame;
-			
-		}
-		
-		public function gameFinalize():void
-		{
-			
 		}
 		
 	}

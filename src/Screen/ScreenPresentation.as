@@ -1,9 +1,10 @@
 package Screen
 {
-	import flash.display.Stage;
 	import flash.events.MouseEvent;
 	
 	import Navigation.NavigationManager;
+	
+	import Utils.FormsUtils;
 		
 	public class ScreenPresentation extends Screen implements IScreen
 	{
@@ -13,8 +14,11 @@ package Screen
 			
 		}
 		
-		public function initialize():void
+		public override function initialize():void
 		{
+			Config.logger.log("ScreenPresentation");
+			this.addChild( Utils.FormsUtils.drawRectangle(Config.stageWidth,Config.stageHeight,0x330000) );
+			
 			this.addEventListener(MouseEvent.CLICK,onAction);
 		}
 		
@@ -23,7 +27,7 @@ package Screen
 			Config.navigationManager.navigateTo(NavigationManager.NODE_GAME);
 		}
 		
-		public function finalize():void
+		public override function finalize():void
 		{
 			this.removeEventListener(MouseEvent.CLICK,onAction);
 		}

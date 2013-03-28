@@ -1,13 +1,7 @@
 package Screen
 {
-	import flash.display.Sprite;
-	
-	import CameraLogic.SnapshotController;
-	
+	import CameraLogic.SnapshotController;	
 	import GameLogic.GameController;
-	
-	import Resources.EmbededResources;
-	
 	import Utils.TimeUtils;
 	
 	public class ScreenGame extends Screen implements IScreen
@@ -28,31 +22,31 @@ package Screen
 		{
 		}
 		
-		public function initialize():void
-		{
+		public override function initialize():void
+		{			
 			displayHeader = new DisplayHeader();
-			mainStage.addChild(displayHeader);
+			this.addChild(displayHeader);
 			
 			displayCamera = new DisplayCamera();
-			mainStage.addChild(displayCamera);			
+			this.addChild(displayCamera);			
 			
 			displayAverageColor = new DisplayAverageColor();
 			displayAverageColor.visible = true;
-			mainStage.addChild(displayAverageColor);			
+			this.addChild(displayAverageColor);			
 			
 			displayCard = new DisplayCard();
 			displayCard.card = Config.loader.getBitmap("card2");
-			mainStage.addChild(displayCard.card);
+			this.addChild(displayCard.card);
 			
 			displayPalette = new DisplayPalette();
-			mainStage.addChild(displayPalette);
+			this.addChild(displayPalette);
 			
 			if( Config.showDebugTools )
 			{
 				displaySnapshot = new DisplaySnapshot();
 				displaySnapshot.x = Config.stageHeight/8 * 7;
 				displaySnapshot.y = 0;
-				mainStage.addChild(displaySnapshot);				
+				this.addChild(displaySnapshot);				
 			}
 			
 			TimeUtils.delayedCall(setLayout);
@@ -90,8 +84,7 @@ package Screen
 				debugDisplayPalette = new DisplayPalette();
 				debugDisplayPalette.y = 0;
 				debugDisplayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
-//				debugDisplayPalette.initialize(Config.codeColor);
-				mainStage.addChild(debugDisplayPalette);
+				this.addChild(debugDisplayPalette);
 			}
 			
 			initializeGame();
@@ -122,7 +115,7 @@ package Screen
 		}				
 		
 		
-		public function finalize():void
+		public override function finalize():void
 		{
 			
 		}			

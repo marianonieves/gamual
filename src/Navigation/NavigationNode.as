@@ -1,19 +1,29 @@
 package Navigation
 {
+	import Screen.IScreen;
 	import Screen.Screen;
 
-	public class NavigationNode
+	public class NavigationNode implements IScreen
 	{
 		public var name:String;
-		public var initialize:Function;
-		public var finalize:Function;
 		public var screen:Screen;
+		public var screenClass:Class;
 		
-		public function NavigationNode(name:String,initialize:Function,finalize:Function)
+		public function NavigationNode( name:String, screenClass:Class )
 		{
 			this.name = name;
-			this.initialize = initialize;
-			this.finalize = finalize;
+			this.screenClass = screenClass;
+		}
+		
+		public function initialize():void
+		{
+			screen = new screenClass();
+			screen.initialize();
+		}
+		
+		public function finalize():void
+		{
+			screen = null;
 		}
 		
 	}
