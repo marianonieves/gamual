@@ -1,7 +1,9 @@
 package Screen
 {
-	import CameraLogic.SnapshotController;	
+	import CameraLogic.SnapshotController;
+	
 	import GameLogic.GameController;
+	
 	import Utils.TimeUtils;
 	
 	public class ScreenGame extends Screen implements IScreen
@@ -12,10 +14,10 @@ package Screen
 		
 		public var displayCamera:DisplayCamera;
 		public var displaySnapshot:DisplaySnapshot;
-		public var displayAverageColor:DisplayAverageColor;
+		public var displayReferenceColor:DisplayReferenceColor;
 		public var displayCard:DisplayCard;
 		public var displayHeader:DisplayHeader;
-		public var displayPalette:DisplayPalette;
+// 		public var displayPalette:DisplayPalette;
 		public var debugDisplayPalette:DisplayPalette;
 		
 		public function ScreenGame()
@@ -28,24 +30,19 @@ package Screen
 			this.addChild(displayHeader);
 			
 			displayCamera = new DisplayCamera();
-			this.addChild(displayCamera);			
+			displayCamera.visible = false;
+			this.addChild(displayCamera);
 			
-			displayAverageColor = new DisplayAverageColor();
-			displayAverageColor.visible = true;
-			this.addChild(displayAverageColor);			
+			displayReferenceColor = new DisplayReferenceColor();
+			displayReferenceColor.visible = true;
+			this.addChild(displayReferenceColor);			
 			
 			displayCard = new DisplayCard();
-			displayCard.card = Config.loader.getBitmap("card2");
-			this.addChild(displayCard.card);
-			
-			displayPalette = new DisplayPalette();
-			this.addChild(displayPalette);
+			this.addChild(displayCard);
 			
 			if( Config.showDebugTools )
 			{
 				displaySnapshot = new DisplaySnapshot();
-				displaySnapshot.x = Config.stageHeight/8 * 7;
-				displaySnapshot.y = 0;
 				this.addChild(displaySnapshot);				
 			}
 			
@@ -58,33 +55,31 @@ package Screen
 			displayHeader.x = 0;
 			displayHeader.y = 0;
 			
-			displayAverageColor.x = 0;
-			displayAverageColor.y = displayHeader.size.height;
-			displayAverageColor.updateSize( Config.stageWidth, Config.stageHeight/2 );
+			displayReferenceColor.x = 0;
+			displayReferenceColor.y = displayHeader.size.height;
+			displayReferenceColor.updateSize( Config.stageWidth, Config.stageHeight );
 			
-			displayCard.x = displayAverageColor.x;
-			displayCard.y = displayAverageColor.y;			
-			displayCard.updateSize( Config.stageWidth, Config.stageHeight/2 );
-			
-			displayCamera.x = -10;
-			displayCamera.y = displayCard.y + displayCard.size.height;
-			displayCamera.updateSize( Config.stageWidth, Config.stageHeight/2 );
-			
-			displayPalette.x = 0;
-			displayPalette.y = displayCamera.y + displayCamera.size.height;
-			displayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
-			displayPalette.initialize(Config.codeColor);
+			displayCard.x = displayReferenceColor.x;
+			displayCard.y = displayHeader.size.height;			
+			displayCard.updateSize( Config.stageWidth, Config.stageHeight );
 
-			
 			if( Config.showDebugTools )
 			{
-				displaySnapshot.x = Config.stageHeight/8 * 7;
+				displaySnapshot.x = 0;
 				displaySnapshot.y = 0;
 				
-				debugDisplayPalette = new DisplayPalette();
-				debugDisplayPalette.y = 0;
-				debugDisplayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
-				this.addChild(debugDisplayPalette);
+				/*
+				displayPalette = new DisplayPalette();
+				this.addChild(displayPalette);
+				displayPalette.x = 0;
+				displayPalette.y = displayCamera.y + displayCamera.size.height;
+				displayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
+				displayPalette.initialize(Config.codeColor);
+				*/
+				
+				displayCamera.x = -10;
+				displayCamera.y = displayCard.y + displayCard.size.height;
+				displayCamera.updateSize( Config.stageWidth, Config.stageHeight/2 );				
 			}
 			
 			initializeGame();
@@ -94,16 +89,14 @@ package Screen
 		{
 			// Game
 			gameController = new GameController();
-			gameController.referenceColorCanvas = displayAverageColor;
-			gameController.paletteCanvas = displayPalette;
-			gameController.paletteDebugCanvas = debugDisplayPalette;
+			gameController.referenceColorCanvas = displayReferenceColor;
+			gameController.cardCanvas = displayCard;
 			gameController.initialize();
 			
 			// SnapshotController
 			snapshotController = new SnapshotController();
 			snapshotController.sourceCanvas = displayCamera;
 			snapshotController.targetCanvas = displaySnapshot;
-			snapshotController.debugCanvas = debugDisplayPalette;
 			snapshotController.gameController = gameController;
 			
 			Utils.TimeUtils.delayedCall(startSnapshotController);
@@ -112,8 +105,7 @@ package Screen
 		public function startSnapshotController():void
 		{
 			snapshotController.initialize();
-		}				
-		
+		}
 		
 		public override function finalize():void
 		{

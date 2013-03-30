@@ -1,19 +1,19 @@
 package Screen
 {
-	import flash.display.Bitmap;
 	import flash.display.Sprite;
 	
 	import UI.UIElement;
 	
-	public class DisplayCard extends UIElement
+	import Utils.FormsUtils;
+
+	public class DisplayReferenceColor extends UIElement
 	{
-		public var canvas:Bitmap;
-		public var referenceColor:Sprite;
+		private var canvas:Sprite;
 		
-		public function DisplayCard()
+		public function DisplayReferenceColor()
 		{
 			super();
-			canvas = new Bitmap();
+			canvas = new Sprite();
 			addChild(canvas);
 		}
 		
@@ -21,17 +21,15 @@ package Screen
 		{
 			size.width = width;
 			size.height = height;
-			canvas.width = width;
-			canvas.height = height;
 		}
 		
-		public function updateCard(card:Bitmap):void
+		public function updateColor(newColor:uint):void
 		{
 			// Recycle
 			removeChild( canvas )
-			canvas = card;
+			canvas = FormsUtils.drawRectangle( size.width, size.height, newColor );
 			addChild ( canvas );
-		}		
+		}
 		
 	}
 }

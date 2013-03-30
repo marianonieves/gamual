@@ -23,18 +23,15 @@ package
 		
 		public static var similarityTolerance:Number=0.05;
 
-		public static var codeColor:Array = new Array();
-		Config.codeColor.push( new DataColor("blanco",0xffffff) );
-		Config.codeColor.push( new DataColor("rojo",0xff0000) );
-		Config.codeColor.push( new DataColor("naranja",0xFF8000) );
-		Config.codeColor.push( new DataColor("amarillo",0xF3F781) );
-		Config.codeColor.push( new DataColor("verde",0x81F781) );
-		Config.codeColor.push( new DataColor("azul",0x2E64FE) );
-		Config.codeColor.push( new DataColor("rosa",0xF5A9F2) );
-		Config.codeColor.push( new DataColor("marron",0x8A4B08) );
-		Config.codeColor.push( new DataColor("negro",0x000000) );
-		
-		
+		public static const COLOR_WHITE:uint = 0xffffff;
+		public static const COLOR_RED:uint = 0xff0000;
+		public static const COLOR_ORANGE:uint = 0xFF8000;
+		public static const COLOR_YELLOW:uint = 0xF3F781;
+		public static const COLOR_GREEN:uint = 0x81F781;
+		public static const COLOR_BLUE:uint = 0x2E64FE;
+		public static const COLOR_PINK:uint = 0xF5A9F2;
+		public static const COLOR_BROWN:uint = 0x8A4B08;
+		public static const COLOR_BLACK:uint = 0x000000;
 		
 	}
 

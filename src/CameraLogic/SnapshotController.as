@@ -10,8 +10,6 @@ package CameraLogic
 	
 	import GameLogic.GameController;
 	
-	import Screen.DisplayPalette;
-	
 	import Utils.ColourUtils;
 	import Utils.MatrixUtil;
 	
@@ -19,7 +17,6 @@ package CameraLogic
 	{
 		public var sourceCanvas:Sprite;
 		public var targetCanvas:Sprite;
-		public var debugCanvas:DisplayPalette;
 		public var gameController:GameController;
 		
 		public var scale:Number=1;
@@ -66,13 +63,12 @@ package CameraLogic
 			
 			imageData.draw(sourceCanvas,scaleMatrix) ;
 			
+			// Use Average color or the color with more frecuency
 			if(true)
 			{
 				orderedColors = ColourUtils.orderColours(imageData);
 				gameController.updateReferenceColor( orderedColors[2] );
-				
-				// if( Config.showDebugTools) debugCanvas.initializeDebug(orderedColors);
-				
+								
 			} else {
 				gameController.updateReferenceColor( ColourUtils.averageColour(imageData) );
 			}
