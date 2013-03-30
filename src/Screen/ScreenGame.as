@@ -12,13 +12,17 @@ package Screen
 		private var snapshotController:SnapshotController;
 		private var gameController:GameController;
 		
+		// Hidden Displays for debbuging
 		public var displayCamera:DisplayCamera;
 		public var displaySnapshot:DisplaySnapshot;
+		// 		public var displayPalette:DisplayPalette;
+		public var debugDisplayPalette:DisplayPalette;
+		
+		// Visible Displays
+		public var displayHeader:DisplayHeader;
 		public var displayReferenceColor:DisplayReferenceColor;
 		public var displayCard:DisplayCard;
-		public var displayHeader:DisplayHeader;
-// 		public var displayPalette:DisplayPalette;
-		public var debugDisplayPalette:DisplayPalette;
+		public var displayMenuCards:DisplayMenuCards;
 		
 		public function ScreenGame()
 		{
@@ -30,15 +34,17 @@ package Screen
 			this.addChild(displayHeader);
 			
 			displayCamera = new DisplayCamera();
-			displayCamera.visible = false;
+			displayCamera.hide();
 			this.addChild(displayCamera);
 			
 			displayReferenceColor = new DisplayReferenceColor();
-			displayReferenceColor.visible = true;
 			this.addChild(displayReferenceColor);			
 			
 			displayCard = new DisplayCard();
 			this.addChild(displayCard);
+			
+			displayMenuCards = new DisplayMenuCards();
+			this.addChild(displayMenuCards);
 			
 			if( Config.showDebugTools )
 			{
@@ -62,6 +68,7 @@ package Screen
 			displayCard.x = displayReferenceColor.x;
 			displayCard.y = displayHeader.size.height;			
 			displayCard.updateSize( Config.stageWidth, Config.stageHeight );
+			
 
 			if( Config.showDebugTools )
 			{

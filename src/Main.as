@@ -65,8 +65,7 @@ package
 			navigationManager.mainStage = stage;
 			
 			Config.navigationManager = navigationManager;			
-			Config.navigationManager.initialize(NavigationManager.NODE_PRESENTATION);
-			
+			Config.navigationManager.initialize(NavigationManager.NODE_GAME);
 		}
 		
 		

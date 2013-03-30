@@ -14,6 +14,7 @@ package Screen
 		{
 			super();
 			canvas = new Sprite();
+			canvas.cacheAsBitmap = true;
 			addChild(canvas);
 		}
 		

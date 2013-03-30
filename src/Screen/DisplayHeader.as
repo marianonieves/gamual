@@ -1,5 +1,6 @@
 package Screen
 {
+	import flash.display.Sprite;
 	import flash.text.TextField;
 	import flash.text.TextFormat;
 	import UI.UIElement;
@@ -7,6 +8,7 @@ package Screen
 	public class DisplayHeader extends UIElement
 	{
 		
+		private var background:Sprite;
 		private var txtTitle:TextField;
 		private var txtformat:TextFormat;
 		
@@ -16,6 +18,11 @@ package Screen
 			
 			txtformat = new TextFormat();
 			
+/*			// Background
+			background = FormsUtils.drawRectangle( Config.stageWidth, Config.stageHeight, 0xcccccc );
+			addChild(background);
+*/			
+			// Text
 			txtTitle = new TextField();
 			txtTitle.text = "GAMUAL";
 			txtTitle.cacheAsBitmap = true;
@@ -33,7 +40,8 @@ package Screen
 			txtformat.color  = 0x000000;
 			txtformat.font = "Arial";
 			txtformat.size = 100;
-			txtTitle.setTextFormat(txtformat);			
+			txtTitle.setTextFormat(txtformat);
+			
 		}
 
 				
