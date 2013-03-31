@@ -46,7 +46,10 @@ package
 		{
 			Config.loader.logLevel = BulkLoader.LOG_INFO;
 
+			Config.loader.add("/Assets/cards/card1.png", {id:"card1"});
 			Config.loader.add("/Assets/cards/card2.png", {id:"card2"});
+			Config.loader.add("/Assets/cards/card3.png", {id:"card3"});
+			Config.loader.add("/Assets/cards/card4.png", {id:"card4"});
 			Config.loader.addEventListener(BulkLoader.COMPLETE, loadCards_onComplete);
 			Config.loader.start();
 		}

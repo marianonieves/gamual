@@ -30,6 +30,7 @@ package Screen
 			// Recycle
 			removeChild( canvas )
 			canvas = card;
+			updateSize( size.width,size.height);
 			addChild ( canvas );
 		}		
 		

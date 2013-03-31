@@ -15,8 +15,8 @@ package Screen
 		// Hidden Displays for debbuging
 		public var displayCamera:DisplayCamera;
 		public var displaySnapshot:DisplaySnapshot;
-		// 		public var displayPalette:DisplayPalette;
 		public var debugDisplayPalette:DisplayPalette;
+		// 		public var displayPalette:DisplayPalette;
 		
 		// Visible Displays
 		public var displayHeader:DisplayHeader;
@@ -30,20 +30,25 @@ package Screen
 		
 		public override function initialize():void
 		{			
-			displayHeader = new DisplayHeader();
-			this.addChild(displayHeader);
-			
 			displayCamera = new DisplayCamera();
 			displayCamera.hide();
 			this.addChild(displayCamera);
 			
+			displayHeader = new DisplayHeader();
+			displayHeader.hide();
+			this.addChild(displayHeader);
+			
+			
 			displayReferenceColor = new DisplayReferenceColor();
+			displayReferenceColor.hide();
 			this.addChild(displayReferenceColor);			
 			
 			displayCard = new DisplayCard();
+			displayCard.hide();
 			this.addChild(displayCard);
 			
 			displayMenuCards = new DisplayMenuCards();
+			displayMenuCards.hide();
 			this.addChild(displayMenuCards);
 			
 			if( Config.showDebugTools )
@@ -57,7 +62,7 @@ package Screen
 		
 		public function setLayout():void
 		{
-			displayHeader.updateSize( Config.stageWidth, Config.stageHeight/12 );
+			displayHeader.updateSize( Config.stageWidth, Config.stageHeight*.05 );
 			displayHeader.x = 0;
 			displayHeader.y = 0;
 			
@@ -66,9 +71,12 @@ package Screen
 			displayReferenceColor.updateSize( Config.stageWidth, Config.stageHeight );
 			
 			displayCard.x = displayReferenceColor.x;
-			displayCard.y = displayHeader.size.height;			
-			displayCard.updateSize( Config.stageWidth, Config.stageHeight );
+			displayCard.y = displayHeader.size.height;
+			displayCard.updateSize( Config.stageWidth, Config.stageHeight*.8 );
 			
+			displayMenuCards.x = 0;
+			displayMenuCards.y = Config.stageHeight - (Config.stageHeight*.15);
+			displayMenuCards.updateSize( Config.stageWidth, (Config.stageHeight*.15));
 
 			if( Config.showDebugTools )
 			{
@@ -82,15 +90,26 @@ package Screen
 				displayPalette.y = displayCamera.y + displayCamera.size.height;
 				displayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
 				displayPalette.initialize(Config.codeColor);
-				*/
 				
 				displayCamera.x = -10;
 				displayCamera.y = displayCard.y + displayCard.size.height;
 				displayCamera.updateSize( Config.stageWidth, Config.stageHeight/2 );				
+				*/
 			}
+			
+			showDisplays();
+		}
+		
+		public function showDisplays():void
+		{
+			displayHeader.show();
+			displayReferenceColor.show();
+			displayCard.show();
+			displayMenuCards.show();
 			
 			initializeGame();
 		}
+		
 		
 		public function initializeGame():void
 		{
@@ -98,7 +117,9 @@ package Screen
 			gameController = new GameController();
 			gameController.referenceColorCanvas = displayReferenceColor;
 			gameController.cardCanvas = displayCard;
+			gameController.menuCards = displayMenuCards;
 			gameController.initialize();
+			Config.gameController = gameController;
 			
 			// SnapshotController
 			snapshotController = new SnapshotController();
