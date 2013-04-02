@@ -38,7 +38,7 @@ package Navigation
 				currentNode.finalize();
 			}
 			
-			Config.logger.log("currentNode:"+currentNode);
+			Config.logger.log(this, "currentNode: " + currentNode);
 
 			currentNode = nodeReferences[node];
 			currentNode.initialize();

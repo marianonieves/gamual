@@ -46,7 +46,7 @@ package Configuration
 			var node:XML = xml..config.(@id == id)[0];
 			
 			if (!node) {
-				Config.logger.error("GROUP '" + id + "' Not Found" )
+				Config.logger.error(this, "GROUP '" + id + "' Not Found" )
 				return new Configuration();
 			}
 			return new Configuration(node);

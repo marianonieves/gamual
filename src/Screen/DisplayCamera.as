@@ -25,11 +25,11 @@ package Screen
 		{
 			if (camera == null)
 			{
-				Config.logger.error("No camera is installed.");
+				Config.logger.error(this, "No camera is installed.");
 			} 
 			else 
 			{
-				Config.logger.log("Camera is installed.");
+				Config.logger.log(this, "Camera is installed.");
 				camera.setMode( 800, 400, 15, true );
 				connectCamera();
 			}

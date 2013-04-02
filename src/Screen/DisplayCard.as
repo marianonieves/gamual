@@ -9,20 +9,14 @@ package Screen
 	{
 		public var canvas:Bitmap;
 		public var referenceColor:Sprite;
+		public var background:Sprite;
 		
 		public function DisplayCard()
 		{
 			super();
+			
 			canvas = new Bitmap();
 			addChild(canvas);
-		}
-		
-		public override function updateSize(width:Number, height:Number ):void
-		{
-			size.width = width;
-			size.height = height;
-			canvas.width = width;
-			canvas.height = height;
 		}
 		
 		public function updateCard(card:Bitmap):void
@@ -30,8 +24,16 @@ package Screen
 			// Recycle
 			removeChild( canvas )
 			canvas = card;
-			updateSize( size.width,size.height);
+			updateSize( size.height / Config.stageRatio, size.height );
 			addChild ( canvas );
+		}		
+		
+		public override function updateSize(width:Number, height:Number ):void
+		{
+			size.width = width;
+			size.height = height;
+			canvas.width = width;
+			canvas.height = height;
 		}		
 		
 	}

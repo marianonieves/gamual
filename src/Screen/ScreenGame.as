@@ -19,7 +19,7 @@ package Screen
 		// 		public var displayPalette:DisplayPalette;
 		
 		// Visible Displays
-		public var displayHeader:DisplayHeader;
+		// public var displayHeader:DisplayHeader;
 		public var displayReferenceColor:DisplayReferenceColor;
 		public var displayCard:DisplayCard;
 		public var displayMenuCards:DisplayMenuCards;
@@ -34,9 +34,9 @@ package Screen
 			displayCamera.hide();
 			this.addChild(displayCamera);
 			
-			displayHeader = new DisplayHeader();
+/*			displayHeader = new DisplayHeader();
 			displayHeader.hide();
-			this.addChild(displayHeader);
+			this.addChild(displayHeader);*/
 			
 			
 			displayReferenceColor = new DisplayReferenceColor();
@@ -62,21 +62,21 @@ package Screen
 		
 		public function setLayout():void
 		{
-			displayHeader.updateSize( Config.stageWidth, Config.stageHeight*.05 );
+/*			displayHeader.updateSize( Config.stageWidth, Config.stageHeight*.05 );
 			displayHeader.x = 0;
-			displayHeader.y = 0;
-			
-			displayReferenceColor.x = 0;
-			displayReferenceColor.y = displayHeader.size.height;
-			displayReferenceColor.updateSize( Config.stageWidth, Config.stageHeight );
-			
-			displayCard.x = displayReferenceColor.x;
-			displayCard.y = displayHeader.size.height;
+			displayHeader.y = 0;*/
+
+			displayCard.x = 0;
+			displayCard.y = 0;
 			displayCard.updateSize( Config.stageWidth, Config.stageHeight*.8 );
 			
+			displayReferenceColor.x = displayCard.x;
+			displayReferenceColor.y = displayCard.y;
+			displayReferenceColor.updateSize( Config.stageWidth, Config.stageHeight*.8 );
+			
 			displayMenuCards.x = 0;
-			displayMenuCards.y = Config.stageHeight - (Config.stageHeight*.15);
-			displayMenuCards.updateSize( Config.stageWidth, (Config.stageHeight*.15));
+			displayMenuCards.y = Config.stageHeight - (Config.stageHeight*.2);
+			displayMenuCards.updateSize( Config.stageWidth, (Config.stageHeight*.2));
 
 			if( Config.showDebugTools )
 			{
@@ -102,9 +102,9 @@ package Screen
 		
 		public function showDisplays():void
 		{
-			displayHeader.show();
-			displayReferenceColor.show();
+			// displayHeader.show();
 			displayCard.show();
+			displayReferenceColor.show();
 			displayMenuCards.show();
 			
 			initializeGame();
@@ -118,7 +118,6 @@ package Screen
 			gameController.referenceColorCanvas = displayReferenceColor;
 			gameController.cardCanvas = displayCard;
 			gameController.menuCards = displayMenuCards;
-			gameController.initialize();
 			Config.gameController = gameController;
 			
 			// SnapshotController
@@ -133,6 +132,8 @@ package Screen
 		public function startSnapshotController():void
 		{
 			snapshotController.initialize();
+			Config.gameController.initialize();
+			
 		}
 		
 		public override function finalize():void

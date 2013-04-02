@@ -8,9 +8,11 @@ package UI
 	{
 		public var size:Object = new Object();
 		
+		
 		public function UIElement()
 		{
 			super();
+			
 		}
 		
 		public function updateSize(width:Number, height:Number ):void
@@ -19,6 +21,12 @@ package UI
 			size.height = height;
 			this.width = size.width;
 			this.height = size.height;
+		}
+
+		public function updatePosition( ):void
+		{
+			// TODO: Dock
+			
 		}
 		
 		public function show():void

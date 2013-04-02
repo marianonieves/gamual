@@ -6,14 +6,14 @@ package Logger
 		{
 		}
 		
-		public function log(msg:String):void
+		public function log(target:*, msg:String):void
 		{
-			trace("LOG:" + msg);
+			trace("LOG :: " + target + " :: " + msg);
 		}
 		
-		public function error(msg:String):void
+		public function error(target:*, msg:String):void
 		{
-			trace("### ERROR:" + msg);
+			trace("### ERROR :: " + target + " :: " + msg);
 		}
 		
 		

@@ -22,8 +22,7 @@ package GameLogic
 
 		public function initialize():void
 		{
-			updateCard("card2");
-			
+			menuCards.onClickCallback("card1");
 		}
 		
 		// Called from snapshotController

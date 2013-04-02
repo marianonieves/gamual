@@ -1,9 +1,10 @@
 package Screen
 {
 	import flash.display.Sprite;
-	import flash.events.Event;
-	import flash.events.MouseEvent;
 	
+	import GameLogic.GameCard;
+	
+	import UI.CustomTwoStateButton;
 	import UI.UIElement;
 	
 	import Utils.FormsUtils;
@@ -11,17 +12,13 @@ package Screen
 	public class DisplayMenuCards extends UIElement
 	{
 		private var background:Sprite;
-		private var btn1:Sprite;
-		private var btn2:Sprite;
-		private var btn3:Sprite;
-		private var btn4:Sprite;
 		
 		public function DisplayMenuCards()
 		{
 			super();
 			
 			// Background
-			background = FormsUtils.drawRectangle( 10, 10, 0x333366 );
+			background = FormsUtils.drawRectangle( 10, 10, 0x333333 );
 			addChild(background);
 		}
 				
@@ -42,24 +39,34 @@ package Screen
 			var btn_width:Number = size.width*.25;
 			var btn_height:Number = size.height;
 			
-			var spriteBtn:Sprite;
 			// btns
-			for(var i:int=1; i<=Config.cards.length; i++)
+			var gameCard:GameCard;
+			for(var i:int=0; i<Config.cards.length; i++)
 			{
-				spriteBtn = this["btn"+i];
-				spriteBtn = FormsUtils.drawRectangle( btn_width, btn_height, Config.cards[(i-1)].color );
-				spriteBtn.name = Config.cards[(i-1)].id;
-				spriteBtn.x = btn_width * (i-1);
-				spriteBtn.addEventListener(MouseEvent.CLICK,onClick);
-				addChild(spriteBtn);
+				gameCard = Config.cards[(i)];
+				Config.logger.log(this,"gameCard: " + gameCard.id);
+				gameCard.button = new CustomTwoStateButton( Utils.FormsUtils.drawRectangle(btn_width,btn_height,gameCard.color), Utils.FormsUtils.drawRectangle(btn_width,btn_height,gameCard.color) );
+				gameCard.button.name = gameCard.id;
+				gameCard.button.updateSize( btn_width, btn_height);
+				gameCard.button.selected  = false;
+				gameCard.button.x = btn_width * (i);
+				gameCard.button.onClickCallback = onClickCallback;
+				addChild(gameCard.button);				
 			}
 			
 		}
 		
-		public function onClick(e:MouseEvent):void
+		public function onClickCallback(name:String):void
 		{
-			Config.logger.log("DisplayMenuCards.onClick:" + e.target.name);
-			Config.gameController.updateCard(e.target.name);
+			var gameCard:GameCard;
+			for(var i:int=0; i<Config.cards.length; i++)
+			{
+				gameCard = Config.cards[(i)];
+				gameCard.button.selected = (gameCard.button.name==name);
+			}
+			
+			Config.logger.log(this, "DisplayMenuCards.onClick: " + name);
+			Config.gameController.updateCard(name);
 		}
 		
 	}

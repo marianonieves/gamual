@@ -7,15 +7,19 @@ package
 	
 	import Configuration.Configuration;
 	
+	import GameLogic.GameCard;
+	
 	import Navigation.NavigationManager;
+	
+	import Sound.SoundManager;
 	
 	import Utils.TimeUtils;
 	
 	import br.com.stimuli.loading.BulkLoader;
 	
+	[SWF(frameRate="30", backgroundColor="#E51D2E")]
 	public class Main extends Sprite
 	{
-		private var navigationManager:NavigationManager;
 		private var configuration:Configuration;
 		
 		public function Main()
@@ -56,6 +60,35 @@ package
 		
 		public function loadCards_onComplete(e:Event):void
 		{
+			Config.cards.push( new GameCard("card1", Config.loader.getBitmap("card1"), Config.COLOR_RED) );
+			Config.cards.push( new GameCard("card2", Config.loader.getBitmap("card2"), Config.COLOR_GREEN) );
+			Config.cards.push( new GameCard("card3", Config.loader.getBitmap("card3"), Config.COLOR_YELLOW) );
+			Config.cards.push( new GameCard("card4", Config.loader.getBitmap("card4"), Config.COLOR_BLUE) );
+			
+			loadSounds();
+		}			
+		
+		public function loadSounds():void
+		{
+			Config.loader.add("/Assets/sounds/click.mp3", {id:"click"});
+			Config.loader.addEventListener(BulkLoader.COMPLETE, loadSounds_onComplete);
+			Config.loader.start();
+		}
+		
+		public function loadSounds_onComplete(e:Event):void
+		{
+			loadUIAssets();
+		}			
+		
+		public function loadUIAssets():void
+		{
+			Config.loader.add("/Assets/ui/logo.png", {id:"logo"});
+			Config.loader.addEventListener(BulkLoader.COMPLETE, loadUIAssets_onComplete);
+			Config.loader.start();
+		}
+		
+		public function loadUIAssets_onComplete(e:Event):void
+		{
 			initializeApp();
 		}
 		
@@ -63,14 +96,15 @@ package
 		{
 			Config.stageHeight = stage.stageHeight;
 			Config.stageWidth = stage.stageWidth;
+			Config.stageRatio = stage.stageHeight/stage.stageWidth;
 			
-			navigationManager = new NavigationManager();
-			navigationManager.mainStage = stage;
+			Config.navigationManager = new NavigationManager();			
+			Config.navigationManager.mainStage = stage;
+			Config.navigationManager.initialize(NavigationManager.NODE_PRESENTATION);
 			
-			Config.navigationManager = navigationManager;			
-			Config.navigationManager.initialize(NavigationManager.NODE_GAME);
+			Config.soundManager = new SoundManager();
+			
 		}
-		
 		
 	}
 }
