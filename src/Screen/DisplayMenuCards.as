@@ -36,6 +36,7 @@ package Screen
 		
 		public function createButtons():void
 		{
+			Config.logger.log(this,"createButtons()");
 			var btn_width:Number = size.width*.25;
 			var btn_height:Number = size.height;
 			
