@@ -73,12 +73,22 @@ package
 		public function loadSounds():void
 		{
 			Config.loader.add("/Assets/sounds/click.mp3", {id:"click"});
+			Config.loader.add("/Assets/sounds/voice_hello.mp3", {id:"voice_hello"});
+			Config.loader.add("/Assets/sounds/voice_letsPaintTogheter.mp3", {id:"voice_letsPaintTogheter"});
+			Config.loader.add("/Assets/sounds/voice_touchScreen.mp3", {id:"voice_touchScreen"});
+			Config.loader.add("/Assets/sounds/voice_letsPaintA.mp3", {id:"voice_letsPaintA"});
+			Config.loader.add("/Assets/sounds/voice_card1.mp3", {id:"voice_card1"});
+			Config.loader.add("/Assets/sounds/voice_card2.mp3", {id:"voice_card2"});
+			Config.loader.add("/Assets/sounds/voice_card3.mp3", {id:"voice_card3"});
+			Config.loader.add("/Assets/sounds/voice_card4.mp3", {id:"voice_card4"});
 			Config.loader.addEventListener(Event.COMPLETE, loadSounds_onComplete);
 			Config.loader.start();
 		}
 		
 		public function loadSounds_onComplete(e:Event):void
 		{
+			Config.soundManager = new SoundManager();
+			
 			Config.loader.removeEventListener(Event.COMPLETE, loadSounds_onComplete);
 			loadUIAssets();
 		}			
@@ -105,8 +115,6 @@ package
 			Config.navigationManager = new NavigationManager();			
 			Config.navigationManager.mainStage = stage;
 			Config.navigationManager.initialize(NavigationManager.NODE_PRESENTATION);
-			
-			Config.soundManager = new SoundManager();
 			
 		}
 		

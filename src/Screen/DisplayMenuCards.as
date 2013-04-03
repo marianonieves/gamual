@@ -55,6 +55,8 @@ package Screen
 				addChild(gameCard.button);				
 			}
 			
+			this.updatePositionByAlign();
+			
 		}
 		
 		public function onClickCallback(name:String):void
@@ -63,7 +65,15 @@ package Screen
 			for(var i:int=0; i<Config.cards.length; i++)
 			{
 				gameCard = Config.cards[(i)];
-				gameCard.button.selected = (gameCard.button.name==name);
+				if( gameCard.button.name == name )
+				{
+					Config.soundManager.addSequenceStep("voice_letsPaintA");
+					Config.soundManager.addSequenceStep("voice_" + gameCard.id );
+					Config.soundManager.startSequence();
+					gameCard.button.selected = true;
+				} else {
+					gameCard.button.selected = false;
+				}
 			}
 			
 			Config.logger.log(this, "DisplayMenuCards.onClick: " + name);

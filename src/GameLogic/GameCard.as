@@ -11,7 +11,7 @@ package GameLogic
 		public var color:uint;
 		public var button:CustomTwoStateButton;
 		
-		public function GameCard( id:String, image:Bitmap, color:uint, button:CustomTwoStateButton=null )
+		public function GameCard( id:String, image:Bitmap, color:uint, button:CustomTwoStateButton=null)
 		{
 			this.id = id;
 			this.image = image;

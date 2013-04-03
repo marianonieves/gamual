@@ -1,7 +1,6 @@
 package Screen
 {
 	import flash.display.Sprite;
-	
 	import UI.UIElement;
 	
 	import Utils.FormsUtils;
@@ -22,6 +21,7 @@ package Screen
 		{
 			size.width = width;
 			size.height = height;
+			
 		}
 		
 		public function updateColor(newColor:uint):void

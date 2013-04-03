@@ -15,6 +15,7 @@ package Screen
 		
 		public function ScreenPresentation()
 		{
+			
 			logo = new Sprite();
 			logo.addChild( Config.loader.getBitmap("logo") );
 		}
@@ -23,7 +24,6 @@ package Screen
 		{
 			Config.logger.log(this, "ScreenPresentation");
 			
-
 			this.addChild( logo );
 			
 			startAnimation();
@@ -35,6 +35,11 @@ package Screen
 			var tox:Number = (Config.stageWidth/2) - (logo.width/2);
 			var toy:Number = (Config.stageHeight/2) - (logo.height/2);
 			TweenLite.to(logo, 1, { x:tox, y:toy, ease:Back.easeOut, onComplete:finishAnimation, onCompleteParams:[this] });
+			
+			Config.soundManager.addSequenceStep("voice_hello");
+			Config.soundManager.addSequenceStep("voice_letsPaintTogheter");
+			Config.soundManager.addSequenceStep("voice_touchScreen");
+			Config.soundManager.startSequence();
 		}
 		
 		public function finishAnimation(param:*):void

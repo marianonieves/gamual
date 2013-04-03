@@ -8,9 +8,9 @@ package Utils
 		{
 		}
 		
-		public static function delayedCall( callback:Function ):void
+		public static function delayedCall( callback:Function, delayedCallTime:Number=1000 ):void
 		{
-			var intID:Number = setTimeout(callback, Config.delayedCallTime); 
+			var intID:Number = setTimeout(callback, delayedCallTime); 
 		}
 		
 	}

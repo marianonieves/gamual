@@ -10,13 +10,15 @@ package CameraLogic
 	
 	import GameLogic.GameController;
 	
+	import UI.UIElement;
+	
 	import Utils.ColourUtils;
 	import Utils.MatrixUtil;
 	
 	public class SnapshotController
 	{
 		public var sourceCanvas:Sprite;
-		public var targetCanvas:Sprite;
+		public var targetCanvas:UIElement;
 		public var gameController:GameController;
 		
 		public var scale:Number=1;
@@ -41,7 +43,9 @@ package CameraLogic
 			if(showDebugTools)
 			{
 				targetCanvas.addChild(image);
+				targetCanvas.updateSize( targetCanvas.width*Config.snapshotScale, targetCanvas.height*Config.snapshotScale ); 
 			}
+			
 
 			scaleMatrix = new Matrix();
 			scaleMatrix.scale(scale, scale)

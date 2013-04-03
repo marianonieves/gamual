@@ -34,7 +34,6 @@ package UI
 		public function onClick(e:MouseEvent):void
 		{
 			Config.logger.log(this,"onClick: " + this.name);
-			Config.soundManager.playSound("click");
 			onClickCallback(this.name);
 		}
 		

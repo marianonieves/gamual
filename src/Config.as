@@ -30,8 +30,7 @@ package
 		public static var stageRatio:Number = 1;
 		
 		public static var snapshotRefreshTime:Number=500;
-		public static var snapshotScale:Number = .1;
-		public static var delayedCallTime:Number=1000;
+		public static var snapshotScale:Number = .5;
 		public static var showDebugTools:Boolean=true;
 		
 		public static var similarityTolerance:Number=0.05;
@@ -45,6 +44,7 @@ package
 		public static const COLOR_PINK:uint = 0xF5A9F2;
 		public static const COLOR_BROWN:uint = 0x8A4B08;
 		public static const COLOR_BLACK:uint = 0x000000;
+		public static const COLOR_CORAL:uint = 0xe51d2e;
 		
 		public static var cards:Vector.<GameCard> = new Vector.<GameCard>();
 		

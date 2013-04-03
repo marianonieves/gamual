@@ -1,13 +1,20 @@
 package Screen
 {
+	import flash.display.BitmapData;
+	import flash.display.Sprite;
+	
 	import CameraLogic.SnapshotController;
 	
 	import GameLogic.GameController;
 	
+	import UI.Docker;
+	
+	import Utils.FormsUtils;
 	import Utils.TimeUtils;
 	
 	public class ScreenGame extends Screen implements IScreen
 	{
+		private var background:Sprite;
 		
 		private var snapshotController:SnapshotController;
 		private var gameController:GameController;
@@ -16,32 +23,24 @@ package Screen
 		public var displayCamera:DisplayCamera;
 		public var displaySnapshot:DisplaySnapshot;
 		public var debugDisplayPalette:DisplayPalette;
-		// 		public var displayPalette:DisplayPalette;
 		
 		// Visible Displays
-		// public var displayHeader:DisplayHeader;
-		public var displayReferenceColor:DisplayReferenceColor;
+		public var displayHeader:DisplayHeader;
 		public var displayCard:DisplayCard;
 		public var displayMenuCards:DisplayMenuCards;
 		
 		public function ScreenGame()
 		{
+			background = Utils.FormsUtils.drawRectangle(Config.stageWidth,Config.stageHeight,Config.COLOR_WHITE);
 		}
 		
 		public override function initialize():void
 		{			
+			this.addChild(background);
+			
 			displayCamera = new DisplayCamera();
 			displayCamera.hide();
 			this.addChild(displayCamera);
-			
-/*			displayHeader = new DisplayHeader();
-			displayHeader.hide();
-			this.addChild(displayHeader);*/
-			
-			
-			displayReferenceColor = new DisplayReferenceColor();
-			displayReferenceColor.hide();
-			this.addChild(displayReferenceColor);			
 			
 			displayCard = new DisplayCard();
 			displayCard.hide();
@@ -57,44 +56,31 @@ package Screen
 				this.addChild(displaySnapshot);				
 			}
 			
+			displayHeader = new DisplayHeader();
+			displayHeader.hide();
+			this.addChild(displayHeader);
+			
 			TimeUtils.delayedCall(setLayout);
 		}
 		
 		public function setLayout():void
 		{
-/*			displayHeader.updateSize( Config.stageWidth, Config.stageHeight*.05 );
-			displayHeader.x = 0;
-			displayHeader.y = 0;*/
-
-			displayCard.x = 0;
-			displayCard.y = 0;
+			displayCard.horizontalAlign = Docker.DOCK_CENTER;
+			displayCard.verticalAlign = Docker.DOCK_TOP;
 			displayCard.updateSize( Config.stageWidth, Config.stageHeight*.8 );
 			
-			displayReferenceColor.x = displayCard.x;
-			displayReferenceColor.y = displayCard.y;
-			displayReferenceColor.updateSize( Config.stageWidth, Config.stageHeight*.8 );
-			
-			displayMenuCards.x = 0;
-			displayMenuCards.y = Config.stageHeight - (Config.stageHeight*.2);
+			displayMenuCards.horizontalAlign = Docker.DOCK_CENTER;
+			displayMenuCards.verticalAlign = Docker.DOCK_BOTTOM;
 			displayMenuCards.updateSize( Config.stageWidth, (Config.stageHeight*.2));
+			
+			displayHeader.horizontalAlign = Docker.DOCK_LEFT;
+			displayHeader.verticalAlign = Docker.DOCK_TOP;
+			displayHeader.updateSize( displayHeader.width*.5 , displayHeader.height*.5 );
 
 			if( Config.showDebugTools )
 			{
-				displaySnapshot.x = 0;
-				displaySnapshot.y = 0;
-				
-				/*
-				displayPalette = new DisplayPalette();
-				this.addChild(displayPalette);
-				displayPalette.x = 0;
-				displayPalette.y = displayCamera.y + displayCamera.size.height;
-				displayPalette.updateSize( Config.stageWidth, Config.stageHeight/10 );
-				displayPalette.initialize(Config.codeColor);
-				
-				displayCamera.x = -10;
-				displayCamera.y = displayCard.y + displayCard.size.height;
-				displayCamera.updateSize( Config.stageWidth, Config.stageHeight/2 );				
-				*/
+				displaySnapshot.horizontalAlign = Docker.DOCK_RIGHT;
+				displaySnapshot.verticalAlign = Docker.DOCK_TOP;
 			}
 			
 			showDisplays();
@@ -102,10 +88,9 @@ package Screen
 		
 		public function showDisplays():void
 		{
-			// displayHeader.show();
 			displayCard.show();
-			displayReferenceColor.show();
 			displayMenuCards.show();
+			displayHeader.show();
 			
 			initializeGame();
 		}
@@ -115,7 +100,7 @@ package Screen
 		{
 			// Game
 			gameController = new GameController();
-			gameController.referenceColorCanvas = displayReferenceColor;
+			gameController.referenceColorCanvas = displayCard.displayReferenceColor;
 			gameController.cardCanvas = displayCard;
 			gameController.menuCards = displayMenuCards;
 			Config.gameController = gameController;
